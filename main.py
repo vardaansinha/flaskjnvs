@@ -17,15 +17,15 @@ from api.fact import fact_api
 
 # register URIs
 app.register_blueprint(nflteam_api) # register app pages
-##app.register_blueprint(score_api)
-##app.register_blueprint(fact_api)
+app.register_blueprint(score_api)
+app.register_blueprint(fact_api)
 
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
     return render_template('404.html'), 404
 
-##@app.route('/')  
+@app.route('/')  
 def index():
     return render_template("index.html")
 
@@ -33,7 +33,7 @@ def index():
 def nflteams():
     return render_template("nflstat.html")
 
-##@app.route('/facts')  
+@app.route('/facts')  
 def facts():
     return render_template("facts.html")
 
