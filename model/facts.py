@@ -83,11 +83,9 @@ def initFactDay():
     f1 = FactofDay("Arizona became the 48th state in the Union.", "February 14th", 1912)
     f2 = FactofDay("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
     f3 = FactofDay("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
-    f4 = FactofDay("Vardaan got her number", "February 15th", 2023)
-    f5 = FactofDay("Vardaan got her number again", "February 16th", 2024)
-    f6 = FactofDay("Navan loves me", "February 15th", 2069)
+
     
-    factslist = [f1, f2, f3, f4, f5, f6]
+    factslist = [f1, f2, f3]
     
 
     for fact in factslist:
