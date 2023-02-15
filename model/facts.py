@@ -11,9 +11,9 @@ class FactofDay(db.Model):
     __tablename__ = 'FactDay'  
     
     id = db.Column(db.Integer, primary_key=True)
-    _fact = db.Column(db.String(255), unique=True, nullable=False)
-    _date = db.Column(db.String(255), unique=True, nullable=False)
-    _year = db.Column(db.Integer, primary_key=False)
+    _fact = db.Column(db.String(255), nullable=False)
+    _date = db.Column(db.String(255), nullable=False)
+    _year = db.Column(db.Integer, nullable=False )
     
     def __init__(self, fact, date, year):
         self._fact = fact
@@ -67,27 +67,36 @@ class FactofDay(db.Model):
             "date" : self.date,
             "year" : self.year,
         }
+        
+def fact_table_empty():
+    return len(db.session.query(FactofDay).all()) == 0
 
 def initFactDay():
+    db.create_all()
+    if not fact_table_empty():
+        return
+    
     print("Creating test data")
     """Create database and tables"""
-    db.create_all()
     """Tester data for table"""
     
-    f1 = FactofDay(fact = "Arizona became the 48th state in the Union.", date = "February 14th", year = 1912)
-    f2 = FactofDay(fact = "The USS Maine Sank after an explosion in Havana Harbor", date = "February 15th", year = 1898)
-    f3 = FactofDay(fact = "Power in Cuba was seized by Fidel Castro", date = "February 16th", year = 1959)
+    f1 = FactofDay("Arizona became the 48th state in the Union.", "February 14th", 1912)
+    f2 = FactofDay("The USS Maine Sank after an explosion in Havana Harbor", "February 15th", 1898)
+    f3 = FactofDay("Power in Cuba was seized by Fidel Castro", "February 16th", 1959)
+    f4 = FactofDay("Vardaan got her number", "February 15th", 2023)
+    f5 = FactofDay("Vardaan got her number again", "February 16th", 2024)
     
-    factslist = [f1, f2, f3]
+    factslist = [f1, f2, f3, f4, f5]
     
 
     for fact in factslist:
         try:
-            fact.create()
-        except IntegrityError:
+            db.session.add(fact)
+            db.session.commit()
+        except IntegrityError as e:
+            print("Error: " +str(e))
             '''fails with bad or duplicate data'''
-            db.session.remove()
-            print(f"Fact is invalid: {fact.uid}")
+            db.session.rollback()
 
 initFactDay()
     

@@ -2,9 +2,10 @@ import threading
 
 # import "packages" from flask
 from flask import render_template  # import render_template from "public" flask libraries
+from flask_cors import CORS
 
 # import "packages" from "this" project
-from __init__ import app  # Definitions initialization
+from __init__ import app, db  # Definitions initialization
 from model.nflteam import initNFLTeams
 from model.scores import initCool
 from model.facts import initFactDay
@@ -40,6 +41,7 @@ def facts():
 
 @app.before_first_request
 def activate_job():
+    db.create_all()
     initNFLTeams()
     initCool()
     initFactDay()
@@ -47,6 +49,7 @@ def activate_job():
 
 # this runs the application on the development server
 if __name__ == "__main__":
+    cors = CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///volumes/sqlite.db'
     app.run(debug=True, host="0.0.0.0", port="8086")
     initNFLTeams()
