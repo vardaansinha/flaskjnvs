@@ -44,17 +44,10 @@ class nflteamAPI:
 
     class _Read(Resource):
         def get(self):
-            teamname = request.args.get("name", default="all")
-            print(teamname)
+            teams = NFLTeam.query.all()    # read/extract all users from database
+            json_ready = [team.read() for team in teams]  # prepare output in json
+            return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
-            if teamname == "all":
-                teams = NFLTeam.query.all()    # read/extract all users from database
-                json_ready = [team.read() for team in teams]  # prepare output in json
-                return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
-            else:
-                team = NFLTeam.getTeam(teamname)
-                #json_ready = [team.read()]
-                return jsonify(team.read())
             
 
     # building RESTapi endpoint

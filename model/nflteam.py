@@ -245,13 +245,7 @@ class NFLTeam(db.Model):
         db.session.delete(self)
         db.session.commit()
         return None
-
-    def getTeam(nflteamname):
-        result = db.session.query(NFLTeam).filter(NFLTeam._team == nflteamname)
-        for row in result:
-            return row
         
-
     def read(self):
         return {
             "division" : self.division,
@@ -279,11 +273,17 @@ class NFLTeam(db.Model):
 
 # Builds working data for testing
 
+def nfl_table_empty():
+    return len(db.session.query(NFLTeam).all()) == 0
+
 def initNFLTeams():
-    print("Creating test data")
-    """Create database and tables"""
     db.create_all()
     """Tester data for table"""
+    if not nfl_table_empty():
+        return
+    
+    print("Creating test data")
+    """Create database and tables"""
 
     #NFC East
 #(self, team, gamesplayed, gameswon, gameslost, gamesdrawn, gamesplayedathome, gamesplayedaway, gameswonathome, gameslostathome,                                                             gameswonaway, gameslostaway, gamesplayed5, gameswon5, gameslost5, pointsfor, pointsagainst, pointsinfourthquarter, playoffs):
@@ -324,12 +324,11 @@ def initNFLTeams():
     """Builds sample user/note(s) data"""
     for team in nflteamsofficial:
         try:
-            team.create()
+            db.session.add(team)
+            db.session.commit()
         except IntegrityError:
+            print("Error: " +str(e))
             '''fails with bad or duplicate data'''
-            db.session.remove()
-            print(f"Records exist, duplicate email, or error: {team.uid}")
+            db.session.rollback()
 
-#initNFLTeams()
-
-print(NFLTeam.getTeam("Atlanta Falcons").pointsagainst)
+initNFLTeams()

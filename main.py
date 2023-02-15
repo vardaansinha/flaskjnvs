@@ -6,17 +6,17 @@ from flask_cors import CORS
 
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
-# from model.nflteam import initNFLTeams
+from model.nflteam import initNFLTeams
 from model.scores import initCool
 from model.facts import initFactDay
 
 # setup APIs
-# from api.nflteam import nflteam_api # Blueprint import api definition
+from api.nflteam import nflteam_api # Blueprint import api definition
 from api.score import score_api # Blueprint import api definition
 from api.fact import fact_api
 
 # register URIs
-# app.register_blueprint(nflteam_api) # register app pages
+app.register_blueprint(nflteam_api) # register app pages
 app.register_blueprint(score_api)
 app.register_blueprint(fact_api)
 
@@ -42,7 +42,7 @@ def facts():
 @app.before_first_request
 def activate_job():
     db.create_all()
-    # initNFLTeams()
+    initNFLTeams()
     initCool()
     initFactDay()
 
@@ -52,5 +52,5 @@ if __name__ == "__main__":
     cors = CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///volumes/sqlite.db'
     app.run(debug=True, host="0.0.0.0", port="8086")
-   #  initNFLTeams()
+    initNFLTeams()
     initFactDay()
