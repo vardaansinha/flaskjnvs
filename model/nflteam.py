@@ -245,6 +245,11 @@ class NFLTeam(db.Model):
         db.session.delete(self)
         db.session.commit()
         return None
+
+    def getTeam(nflteamname):
+        result = db.session.query(NFLTeam).filter(NFLTeam._team == nflteamname)
+        for row in result:
+            return row
         
 
     def read(self):
@@ -283,7 +288,7 @@ def initNFLTeams():
     #NFC East
 #(self, team, gamesplayed, gameswon, gameslost, gamesdrawn, gamesplayedathome, gamesplayedaway, gameswonathome, gameslostathome,                                                             gameswonaway, gameslostaway, gamesplayed5, gameswon5, gameslost5, pointsfor, pointsagainst, pointsinfourthquarter, playoffs):
 
-    t1 = NFLTeam(division = "NFC East", team = "Washington Commanders", gamesplayed = 15, gameswon = 8, gameslost = 8, gamesdrawn = 1, gamesplayedathome=8, gamesplayedaway=9, gameswonathome=4, gameslostathome=5, gameswonaway=4, gameslostaway=3, gamesplayed5=5, gameswon5=2, gameslost5=3, pointsfor=321, pointsagainst=343, playoffs="No")
+    t1 = NFLTeam(division = "NFC East", team = "Washington Commanders", gamesplayed = 17, gameswon = 8, gameslost = 8, gamesdrawn = 1, gamesplayedathome=8, gamesplayedaway=9, gameswonathome=4, gameslostathome=5, gameswonaway=4, gameslostaway=3, gamesplayed5=5, gameswon5=2, gameslost5=3, pointsfor=321, pointsagainst=343, playoffs="No")
     t2 = NFLTeam(division = "NFC East", team = "New York Giants", gamesplayed = 17, gameswon = 9, gameslost = 7, gamesdrawn = 1, gamesplayedathome=9, gamesplayedaway=8, gameswonathome=5, gameslostathome=3, gameswonaway=4, gameslostaway=4, gamesplayed5=5, gameswon5=1, gameslost5=3, pointsfor=365, pointsagainst=371, playoffs="Yes")
     t3 = NFLTeam(division = "NFC East", team = "Dallas Cowboys", gamesplayed = 17, gameswon = 12, gameslost = 5, gamesdrawn = 0, gamesplayedathome=9, gamesplayedaway=8, gameswonathome=8, gameslostathome=1, gameswonaway=4, gameslostaway=4, gamesplayed5=5, gameswon5=3, gameslost5=2, pointsfor=467, pointsagainst=342, playoffs="Yes")
     t4 = NFLTeam(division = "NFC East", team = "Philadelphia Eagles", gamesplayed = 17, gameswon = 14, gameslost = 3, gamesdrawn = 0, gamesplayedathome=9, gamesplayedaway=8, gameswonathome=7, gameslostathome=2, gameswonaway=7, gameslostaway=1, gamesplayed5=5, gameswon5=4, gameslost5=1, pointsfor=477, pointsagainst=344, playoffs="Yes")
@@ -325,4 +330,6 @@ def initNFLTeams():
             db.session.remove()
             print(f"Records exist, duplicate email, or error: {team.uid}")
 
-initNFLTeams()
+#initNFLTeams()
+
+print(NFLTeam.getTeam("Atlanta Falcons").pointsagainst)
