@@ -5,7 +5,7 @@ from flask import render_template  # import render_template from "public" flask 
 from flask_cors import CORS
 
 # import "packages" from "this" project
-from __init__ import app, db  # Definitions initialization
+from __init__ import app,db  # Definitions initialization
 from model.nflteam import initNFLTeams
 from model.scores import initCool
 from model.facts import initFactDay
