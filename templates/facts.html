@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+{% set project = "Home" %}
+ 
+{% block body %}
+    <!-- Start of body content specific to page -->
+    <div class="px-5 py-5 mx-auto">
+        <h1 class="text-black"><strong>What Happened On This Day?</strong></h1>
+        <div class="row">
+            <div >
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Here at JVNS News, we'll update the interesting facts of each day of the week every week, so you can educate yourselves and your friends!</h5>
+                    <p class="card-text">
+                        <script>
+                            const dbParam = JSON.stringify({table:"facts",limit:20});
+                            const xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onload = function() {
+                                const myObj = JSON.parse(this.responseText);
+                                let text = "<table border='1' style='border-collapse: separate;'><tr><th>Fact</th><th>Date</th><th>Year</th>"
+                                for (let x in myObj) {
+                                    text += "<tr><td>" + myObj[x].fact + "</td><td>" + myObj[x].date + "</td><td>" + myObj[x].year + "</td></tr>";
+                                }
+                                text += "</table>"    
+                                document.getElementById("demo").innerHTML = text;
+                            }
+                            xmlhttp.open("GET", "/api/fact/");
+                            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                            xmlhttp.send("x=" + dbParam);
+                            
+                        </script>
+                        <p id="demo"></p>
+                    </p>
+                    <a href="#" class="btn btn-primary">Reload</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}

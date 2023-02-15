@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+{% set project = "Home" %}
+ 
+{% block body %}
+    <!-- Start of body content specific to page -->
+    <div class="px-5 py-5 mx-auto">
+        <h1 class="text-white"><strong>Python Home Page</strong></h1>
+        <div class="row">
+            <div >
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">NFL Team Stats</h5>
+                    <p class="card-text">
+                        <script>
+                            const dbParam = JSON.stringify({table:"teams",limit:20});
+                            const xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onload = function() {
+                              const myObj = JSON.parse(this.responseText);
+                              let text = "<table border='1' style='border-collapse: separate;'><tr><th>Team</th><th>Division</th><th>Games Played</th><th>Games Won</th><th>Games Drawn</th><th>Games Played At Home</th><th>Games Played Away</th><th>Games Won At Home</th><th>Games Won Away</th><th>Games Lost At Home</th><th>Games Lost Away</th><th>Points For</th><th>Points Against</th><th>Playoffs</th></tr>"
+                              for (let x in myObj) {
+                                text += "<tr><td>" + myObj[x].team + "</td><td>" + myObj[x].division + "</td><td>" + myObj[x].gamesplayed + "</td><td>" + myObj[x].gameswon + "</td><td>" + myObj[x].gamesdrawn + "</td><td>" + myObj[x].gamesplayedathome + "</td><td>" + myObj[x].gamesplayedaway + "</td><td>" + myObj[x].gameswonathome + "</td><td>" + myObj[x].gameswonaway + "</td><td>" + myObj[x].gameslostathome + "</td><td>" + myObj[x].gameslostaway + "</td><td>" + myObj[x].pointsfor + "</td><td>" + myObj[x].pointsagainst + "</td><td>" + myObj[x].playoffs + "</td></tr>";
+                              }
+                              text += "</table>"    
+                              document.getElementById("demo").innerHTML = text;
+                            }
+                            xmlhttp.open("GET", "/api/nflteam/");
+                            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                            xmlhttp.send("x=" + dbParam);
+                        </script>
+                        <p id="demo"></p>
+                    </p>
+                    <a href="#" class="btn btn-primary">Reload</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
