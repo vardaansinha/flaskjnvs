@@ -1,7 +1,11 @@
 [nix-shell:/mnt/c/Users/navan/vscode/flaskjnvs/volumes]# sqlite3 sqlite.db
 SQLite version 3.38.2 2022-03-26 13:51:10
 Enter ".help" for usage hints.
+sqlite> .tables
+FactDay       NFLTeam       breakingnews  facts
+
 sqlite> .headers ON
+
 sqlite> select * from breakingnews;
 id|_title|_network|_day|_city|_link|_lat|_lng
 1|Padres FanFest mayhem: Long lines, crowded concourses, and delayed entry|CNN|2023-01-21|San Diego|https://www.cbs8.com/article/news/local/padres-fanfest-mayhem-crowded-concourses-and-delayed-entry/509-543c588b-0eba-4c95-bb84-b3538894dd77|32.7157|-117.1611
