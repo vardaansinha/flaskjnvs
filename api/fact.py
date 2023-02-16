@@ -17,7 +17,9 @@ class factAPI:
             ''' Avoid garbage in, error checking '''
             # validate name
             fact = body.get('facts')
-            if fact is None or len(fact) < 2:
+            print(fact)
+            
+            if len(str(fact)) < 2:
                 return {'message': f'Fact is missing, or is less than 2 characters'}, 210
             
             # look for score, type
@@ -29,9 +31,9 @@ class factAPI:
             
             ''' Additional garbage error checking '''
             
-            # create nfl news in database
+            
             fact = uo.create()
-            # success returns json of nfl news
+            
             if fact:
                 return jsonify(fact.read())
             # failure returns error
