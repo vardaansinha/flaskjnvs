@@ -73,7 +73,7 @@ def fact_table_empty():
 
 def initFactDay():
     db.create_all()
-    db.init_app(app)
+    #db.init_app(app)
     if not fact_table_empty():
         return
     
