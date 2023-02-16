@@ -87,7 +87,7 @@ def initFactDay():
     f4 = FactofDay("Shaurya achieved genius status", "February 17th", 2023)
 
     
-    factslist = [f1, f2, f3]
+    factslist = [f1, f2, f3, f4]
     
 
     for fact in factslist:
