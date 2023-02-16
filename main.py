@@ -9,16 +9,19 @@ from __init__ import app,db  # Definitions initialization
 from model.nflteam import initNFLTeams
 from model.scores import initCool
 from model.facts import initFactDay
+from model.breakingnews import initBreakingNews
 
 # setup APIs
 from api.nflteam import nflteam_api # Blueprint import api definition
 from api.score import score_api # Blueprint import api definition
 from api.fact import fact_api
+from api.news import breakingnews_api # Blueprint import api definition
 
 # register URIs
 app.register_blueprint(nflteam_api) # register app pages
 app.register_blueprint(score_api)
 app.register_blueprint(fact_api)
+app.register_blueprint(breakingnews_api) # register api routes
 
 
 @app.errorhandler(404)  # catch for URL not found
@@ -45,6 +48,7 @@ def activate_job():
     initNFLTeams()
     initCool()
     initFactDay()
+    initBreakingNews()
 
 
 # this runs the application on the development server
