@@ -16,3 +16,9 @@ venv.bak/
 volumes/sqlite.db
 instance/volumes/sqlite.db
 **.pyc
+__pycache__/__init__.cpython-310.pyc
+api/__pycache__/nflteam.cpython-310.pyc
+api/__pycache__/score.cpython-310.pyc
+model/__pycache__/facts.cpython-310.pyc
+model/__pycache__/nflteam.cpython-310.pyc
+model/__pycache__/scores.cpython-310.pyc
