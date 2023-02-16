@@ -11,33 +11,31 @@ api = Api(fact_api)
 class factAPI:        
     class _Create(Resource):
         def post(self):
-            ''' Read data for json body '''
-            body = request.get_json()
-            
-            ''' Avoid garbage in, error checking '''
+             ''' Read data for json body '''
+             body = request.json
+             
+             ''' Avoid garbage in, error checking '''
             # validate name
-            fact = body.get('facts')
-            print(fact)
-            
-            if len(str(fact)) < 2:
+             fact = body.get('fact')
+             if fact is None or len(fact) < 2:
                 return {'message': f'Fact is missing, or is less than 2 characters'}, 210
             
             # look for score, type
-            score = body.get('score')
-            type = body.get('type')
+             score = body.get('score')
+             type = body.get('type')
 
             
-            uo = fact(facts=fact, score=score, type=type)
+             uo = fact(facts=fact, score=score, type=type)
             
-            ''' Additional garbage error checking '''
+             ''' Additional garbage error checking '''
             
             
-            fact = uo.create()
+             fact = uo.create()
             
-            if fact:
+             if fact:
                 return jsonify(fact.read())
             # failure returns error
-            return {'message': f'Processed news error'}, 210
+             return {'message': f'Processed news error'}, 210
 
     class _Read(Resource):
         def get(self):
