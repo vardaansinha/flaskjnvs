@@ -9,3 +9,7 @@ services:
                         - ./volumes:/volumes
                         - ./instance:/instance
                 restart: unless-stopped
+networks:
+        dfefault:
+                external: 
+                        name: jvns_flask
