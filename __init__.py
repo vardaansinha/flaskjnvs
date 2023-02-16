@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 """
 These object can be used throughout project.
@@ -13,9 +14,10 @@ These object can be used throughout project.
 print("Creating app")
 app = Flask(__name__)
 app.app_context().push()
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Setup SQLAlchemy object and properties for the database (db)
-dbURI = 'sqlite:///volumes/sqlite.db'
+dbURI = 'sqlite:///sqlite.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = dbURI
 app.config['SECRET_KEY'] = 'SECRET_KEY'
