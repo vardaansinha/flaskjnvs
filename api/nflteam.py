@@ -14,33 +14,33 @@ class nflteamAPI:
             ''' Read data for json body '''
             body = request.get_json()
             
-            ''' Avoid garbage in, error checking '''
-            # validate name
-            team = body.get('teams')
-            if team is None or len(team) < 2:
-                return {'message': f'Team is missing, or is less than 2 characters'}, 210
+            team = body.get('team')
+            pointsfor = body.get('pointsfor')
+            pointsagainst = body.get('pointsagainst')
+            playoffs = body.get('playoffs')
+            gameswonaway = body.get('gameswonaway')
+            gameswonathome = body.get('gameswonathome')
+            gameswon = body.get('gameswon')
+            gamesplayedaway = body.get('gamesplayedaway')
+            gamesplayedathome = body.get('gamesplayedathome')
+            gamesplayed = body.get('gamesplayed')
+            gameslostaway = body.get('gameslostaway')
+            gameslostathome = body.get('gameslostathome')
+            gameslost = body.get('gameslost')
+            gamesdrawn = body.get('gamesdrawn')
+            division = body.get('division')
             
-            # look for score, type
-            score = body.get('score')
-            type = body.get('type')
-            #day = body.get('day')
-            # validate uid
-            #uid = body.get('id')
-            #if uid is None or len(uid) < 2:
-            #    return {'message': f'ID is missing, or is less than 2 characters'}, 210
-            #''' #1: Key code block, setup USER OBJECT '''
-            
-            uo = nflteam(teams=team, score=score, type=type)
+            teamObj = NFLTeam(division=division, team=team, gamesplayed=gamesplayed, gameswon=gameswon, gameslost=gameslost, gamesdrawn=gamesdrawn, gamesplayedathome=gamesplayedathome, gamesplayedaway=gamesplayedaway, gameswonathome=gameswonathome, gameslostathome=gameslostathome, gameswonaway=gameswonaway, gameslostaway=gameslostaway, gamesplayed5=0, gameswon5=0, gameslost5=0, pointsfor=pointsfor, pointsagainst=pointsagainst,  playoffs=playoffs)
             
             ''' Additional garbage error checking '''
             
             # create nfl news in database
-            nflteam = uo.create()
+            nflteam = teamObj.create()
             # success returns json of nfl news
             if nflteam:
                 return jsonify(nflteam.read())
             # failure returns error
-            return {'message': f'Processed news error'}, 210
+            return {'message': f'NFL Team not created'}, 210
 
     class _Read(Resource):
         def get(self):
