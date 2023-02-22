@@ -36,12 +36,13 @@ def index():
 def nflteams():
     return render_template("nflstat.html")
 
+# just a little fun wrinkle for the backend, where the facts can be updated on the flask server as well in a readable format.
 @app.route('/facts')  
 def facts():
     return render_template("facts.html")
 
 
-
+# this registers all of the functions.
 @app.before_first_request
 def activate_job():
     initNFLTeams()
@@ -50,7 +51,7 @@ def activate_job():
     initBreakingNews()
 
 
-# this runs the application on the development server
+# this runs the application on the development server, for any tester data, etc.
 if __name__ == "__main__":
     cors = CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///volumes/sqlite.db'
