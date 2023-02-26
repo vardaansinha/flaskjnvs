@@ -45,7 +45,7 @@ def facts():
 # this registers all of the functions.
 @app.before_first_request
 def activate_job():
-    initNFLTeams()
+    #initNFLTeams()
     initCool()
     initFactDay()
     initBreakingNews()

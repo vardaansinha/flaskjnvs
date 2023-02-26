@@ -241,6 +241,31 @@ class NFLTeam(db.Model):
             db.session.remove()
             return None
 
+    def update(self, tid):
+        try:
+            teamToUpdate = NFLTeam.query.filter_by(id=tid).first()
+            teamToUpdate._team = self.team
+            teamToUpdate._division = self._division
+            teamToUpdate._gamesplayed = self._gamesplayed
+            teamToUpdate._gameswon = self._gameswon
+            teamToUpdate._gameslost = self._gameslost
+            teamToUpdate._gamesdrawn = self._gamesdrawn
+            teamToUpdate._gamesplayed5 = self._gamesplayed5
+            teamToUpdate._gameslost5 = self._gameslost5
+            teamToUpdate._gameswon5 = self._gameswon5
+            teamToUpdate._gamesplayedathome = self._gamesplayedathome
+            teamToUpdate._gamesplayedathome = self._gameswonathome
+            teamToUpdate._gameswonaway = self._gameswonaway
+            teamToUpdate._gameslostaway = self._gameslostaway
+            
+            
+            db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
+            return self
+        except IntegrityError:
+            db.session.remove()
+            return None
+
+    
     def delete(self):
         db.session.delete(self)
         db.session.commit()
@@ -271,7 +296,8 @@ class NFLTeam(db.Model):
             "gameslost5" : self.gameslost5,
             "pointsfor" : self.pointsfor,
             "pointsagainst" : self.pointsagainst,
-            "playoffs" : self.playoffs
+            "playoffs" : self.playoffs,
+            "id": self.id
         }
 
 
