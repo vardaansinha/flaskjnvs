@@ -241,6 +241,9 @@ class NFLTeam(db.Model):
             db.session.remove()
             return None
 
+    def getTeamById(teamid):
+        return db.session.query(NFLTeam).filter(NFLTeam.id == teamid).first()
+        
     def update(self, tid):
         try:
             teamToUpdate = NFLTeam.query.filter_by(id=tid).first()
@@ -260,7 +263,8 @@ class NFLTeam(db.Model):
             
             
             db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
-            return self
+            print(tid)
+            return NFLTeam.getTeamById(teamid = tid)
         except IntegrityError:
             db.session.remove()
             return None
@@ -276,7 +280,6 @@ class NFLTeam(db.Model):
         for row in result:
             return row
         
-
     def read(self):
         return {
             "division" : self.division,

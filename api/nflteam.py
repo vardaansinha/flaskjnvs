@@ -90,11 +90,35 @@ class nflteamAPI:
                 return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
             else:
                 team = NFLTeam.getTeam(teamname)
+
+                if (team is None):
+                    return {'message': f'NFL Team with name: ('+teamname+') not found.'}, 210
                 #json_ready = [team.read()]
                 return jsonify(team.read())
+    
+    class _Delete(Resource):
+        def delete(self):
+            teamid = request.args.get("id")
+            print(teamid)
+
+            if teamid == "":
+                 return {'message': f'NFL Team ID not provided.'}, 210
+            else:
+                team = NFLTeam.getTeamById(teamid)
+
+                if (team is None):
+                    return {'message': f'NFL Team with ID: ('+teamid+') not found.'}, 210
+                
+                teamName = team._team
+                print("deleting nfl team " + team._team)
+                
+                #json_ready = [team.read()]
+                NFLTeam.delete(team)
+                return {'message': f'NFL Team \''+teamName+'\' ('+teamid+') deleted.'}, 200
             
 
     # building RESTapi endpoint
     api.add_resource(_Create, '/create')
+    api.add_resource(_Delete, '/delete')
     api.add_resource(_Update, '/update')
     api.add_resource(_Read, '/')
