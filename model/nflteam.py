@@ -253,15 +253,15 @@ class NFLTeam(db.Model):
             teamToUpdate._gameswon = self._gameswon
             teamToUpdate._gameslost = self._gameslost
             teamToUpdate._gamesdrawn = self._gamesdrawn
-            teamToUpdate._gamesplayed5 = self._gamesplayed5
-            teamToUpdate._gameslost5 = self._gameslost5
-            teamToUpdate._gameswon5 = self._gameswon5
+            teamToUpdate._pointsagainst = self._pointsagainst
+            teamToUpdate._pointsfor = self._pointsfor
+            teamToUpdate._gameslostathome = self._gameslostathome
+            teamToUpdate._gameswonathome = self._gameswonathome
             teamToUpdate._gamesplayedathome = self._gamesplayedathome
-            teamToUpdate._gamesplayedathome = self._gameswonathome
+            teamToUpdate._gamesplayedaway = self._gamesplayedaway
             teamToUpdate._gameswonaway = self._gameswonaway
             teamToUpdate._gameslostaway = self._gameslostaway
-            
-            
+            teamToUpdate._playoffs = self._playoffs
             db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
             print(tid)
             return NFLTeam.getTeamById(teamid = tid)
