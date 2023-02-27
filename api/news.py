@@ -3,6 +3,7 @@ from flask_restful import Api, Resource # used for REST API building
 from datetime import datetime
 
 from model.breakingnews import BreakingNews
+from model.breakingnews import deleteBreakingNews
 
 breakingnews_api = Blueprint('breakingnews_api', __name__,
                    url_prefix='/api/breakingnews')
@@ -55,6 +56,15 @@ class BreakingNewsAPI:
             json_ready = [user.read() for user in news]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
+    class _Delete(Resource):
+        def delete(self):
+            body = request.get_json()
+            id = body.get('id')
+            #print("Deleting Breaking News Item: " + id)        
+            deleteBreakingNews(id)
+            return f"Has been deleted"
+
     # building RESTapi endpoint
     api.add_resource(_Create, '/create')
     api.add_resource(_Read, '/')
+    api.add_resource(_Delete, '/delete')

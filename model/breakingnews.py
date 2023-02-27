@@ -202,3 +202,10 @@ def initBreakingNews():
             db.session.remove()
             print(f"Records exist, duplicate email, or error: {news.uid}")
             
+# Delete a breaking news item 
+def deleteBreakingNews(did):
+    db.session.execute("delete from breakingnews where id=" + did)
+    db.session.commit()
+    #print("Delete breaking news item = " + did)
+    return None
+
