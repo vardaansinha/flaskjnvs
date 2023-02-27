@@ -9,7 +9,9 @@ nflteam_api = Blueprint('nflteam_api', __name__, url_prefix='/api/nflteam')
 api = Api(nflteam_api)
 
 class nflteamAPI:        
+    # Create
     class _Create(Resource):
+        # Post Method
         def post(self):
             ''' Read data for json body '''
             body = request.get_json()
@@ -42,7 +44,10 @@ class nflteamAPI:
             # failure returns error
             return {'message': f'NFL Team not created'}, 210
 
+    
+    # Update
     class _Update(Resource):
+        # Put Method
         def put(self):
             ''' Read data for json body '''
             body = request.get_json()
@@ -78,8 +83,9 @@ class nflteamAPI:
             return {'message': f'NFL Team not created'}, 210
 
     
-    
+    # Read
     class _Read(Resource):
+        # Get Method
         def get(self):
             teamname = request.args.get("name", default="all")
             print(teamname)
@@ -96,7 +102,9 @@ class nflteamAPI:
                 #json_ready = [team.read()]
                 return jsonify(team.read())
     
+    # Delete
     class _Delete(Resource):
+        # Delete Method
         def delete(self):
             teamid = request.args.get("id")
             print(teamid)
