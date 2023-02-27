@@ -244,6 +244,7 @@ class NFLTeam(db.Model):
     def getTeamById(teamid):
         return db.session.query(NFLTeam).filter(NFLTeam.id == teamid).first()
         
+    # Update Method 
     def update(self, tid):
         try:
             teamToUpdate = NFLTeam.query.filter_by(id=tid).first()
@@ -269,17 +270,19 @@ class NFLTeam(db.Model):
             db.session.remove()
             return None
 
-    
+    # Delete Method 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
         return None
 
+    # Get Method 
     def getTeam(nflteamname):
         result = db.session.query(NFLTeam).filter(NFLTeam._team == nflteamname)
         for row in result:
             return row
         
+    # Read Method
     def read(self):
         return {
             "division" : self.division,
