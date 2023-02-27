@@ -15,6 +15,7 @@ venv.bak/
 # instance data, databases
 volumes/sqlite.db
 instance/volumes/sqlite.db
+instance/sqlite.db
 **.pyc
 __pycache__/__init__.cpython-310.pyc
 api/__pycache__/nflteam.cpython-310.pyc
